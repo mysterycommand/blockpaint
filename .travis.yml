@@ -1,0 +1,65 @@
+language: node_js
+
+# this is handled by the fact that we have an `.nvmrc` in the root
+# node_js: lts/*
+
+cache: yarn
+
+env:
+  global:
+    - secure: qDnI4kW5Ifh+ExjR1zQfNIDw/kluqSd9YyhgZhzmH9ivdG0xqsLY8pppNZxMow8L720b3CR82GdO2PY0iZhBuoxNNJTogFMZBXjkS+ABfAIhpM5Wcytuwb16YX9qPHj5s/veTv1uftc20LpF2p/6y90hjRI6bqMj4flcs1l/FfDSLcdkHbPGL+TS6EwT6yZ7VsEuk0U+yzSnKDEK5hxo9e0DSwaZs4+vCx8it3TC2zqpeEpD7neZepwvII1M4ljQ9Oou1zXaNP6sk7bKqQnlJzThROvo75Lf5rt1qSwjVDLwV+Lu3qa/Odg/RW3bbDb/Hia7U4WOlunbdsMCRFzn5doV+pbXr3qFG9sW5eTBYqtYMsTGM8rS06HCUH/bf1Vk1TD/iZ1BDr5Sk/AXLSk76vx99AGqHmMF3yoEqqG1I+Ac7svFCHvu+LwVtw7HpJjHL99X8Zp0oCZsu2Bq0Zt4juT398yHk0znuVvB4QybME/uR9MKEEqve83PRsjlx3Jd/+siQ0vyt1UVm4gIx9HbqPfSE3lPAjpnU/mq3yLo5HS6pTHWxG+xsTODCbLtx0XI/kegJbCJnlg7V+kvmqZwEpIAYJabQSsMivZBgfih3M3dbTp/pIlBFv829O5Y4jKVJeR3PfEczE6rpnSpP7FwsDvZI0FG4sSPXSKHzmpLilQ=
+    - secure: dfcGmFaMcNo+lj5GOM7Zan6xwuTjSgrGq8RLtxPx7Tr9MQ4REQpCairQAsy+rxFy40abYHMVD0OBBMdntABAWXMpoATtkgpq9CGF1xDmYqj9iykdD8PkH5KbKJ+O55xBy5MDMmadQNqtRrEojdzQb8vN/7cqY67CM6yR+ZsjlxLaoO7SyNQgCwYELlRHjyPY8Et9XFXYnK1fn15WLQ4CwMFxiZnD6wrWGFw7enmt7V2o5Q/DPLTGhPcdLEzVOyafdJMUEhU25dFGpUfw4GXvEofIZvYG/Eth7b+p4QCrpvFV/bDW0sYiybxx1VCn/o/E/R+QoUn8H3nQqPiRbAuU7QAs3IjnRGOCJvzijSz0goM5F8TSgh0De2x8bYXiK7w4hTcVriP/7ny1qty4u9/lGbKC40Ci5GHTGTDv7LK7nNq+jNSiDjPh6NXFszEOR2eIC4KOqGMOp0N8YqNhqtKrfklIwAi3s63dUCPjs1aLFBhPGieNPEN2B90QXXw+x9bweuPejD6ZqrvZwguwx3iLAoHcl8bUxm8XCUzE+xighZTM3JUy05tT01ySyVRoR9/UkhJZkKwSqkgYDHOiQHRoCfPHbSXBFDJjQtTLfEyFy7n3N/apWZ2c86lMMyYgjSdRaBTdxvGdhcbE2S0tD2zp9QbVQsGf8DDtd/62w6zY34I=
+    - secure: NyWQTUdazfuzrhC5vIn24eABugNXArurkAKLsEdLXwveCYWNVr/ctJwCOsAon3+LuhluH9+dK4ls2FKrNgjEDuqjKBe4CuC0HhUO/cFBbBV+sxtVXqRTzM9d858eBXbY3nZbxK9baH00pglobZbURHugjCqwJonjFrve7E/BB4r3b4X0Lrlz1Q8sHP4BmnBq5P819i2QgZlGWySJbKL8BDshg5kHzFwH40oXWAQ+7V4+S3g7/AQQfFvolxv6Sb8K+wBpXJattelmUCSNlxc1PfZFASjkYmdwtHT+6zw9YPx9ikKqMgvHUxG5jgSQkMzK4bySrs1BslWq9ShMkSaGtPPcTXO+Kjzr2OvP4gFb59yGyUFSm11oqZ9Sc7rH6SUJwwwPGS8H3EgfLp7DBCVySKVMCpzLqWCHsqE4ezBAUrpn4AFxc5Oi8SFXHl5pucyPgxH+qBUQjE+YO5++toNHtizDmnmqoaaqBoANBs8EV4U1DikJuszM1X2iHzGkRN5ZV196ax0JO+3u8Vc5lfD98bxUCcsZt9Kt+kcm4Pit/Bd+H7o3OOZMJdJTVtBYHwNLdHHoftRxMxXnVRlGYnvom6J/EU6WtkdLrw1C+mO7Ol797ukFOXU/bm2hG8HRTXgNR10Ff2n0oFD/Dy8KDO3HerED4/z3tKNfOgFzJ/IA9QU=
+
+before_install:
+  # get the right npm version
+  - NPM_VERSION=`node -pe "require('./package.json').engines.npm"`
+  - if [ `npm --version` != "$NPM_VERSION" ]; then
+    npm install --global npm@${NPM_VERSION};
+    fi
+
+  # get the right yarn version
+  - YARN_VERSION=`node -pe "require('./package.json').engines.yarn"`
+  - if [ `yarn --version` != "$YARN_VERSION" ]; then
+    curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION;
+    export PATH=$HOME/.yarn/bin:$PATH;
+    fi
+
+before_script:
+  # code climate's coverage reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+    > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - './cc-test-reporter before-build'
+
+script:
+  - yarn lint
+  - yarn test
+  - yarn build
+
+after_success:
+  - test $TRAVIS_PULL_REQUEST != "false" && npx semantic-release-github-pr
+
+deploy:
+  # deploy a git tag, release notes, bump package.json, update READMEs
+  - provider: script
+    skip_cleanup: true
+    script: npx semantic-release
+    on:
+      branch: master
+
+  # deploy the site
+  - provider: pages
+    repo: mysterycommand/blockpaint
+    target_branch: gh-pages
+    github_token: '$GH_TOKEN'
+    allow_empty_commit: true
+    skip_cleanup: true
+    keep_history: true
+    local_dir: dist/
+    on:
+      branch: master
+
+after_script:
+  # report coverage
+  - './cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT'
