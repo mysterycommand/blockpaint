@@ -1,3 +1,8 @@
+# BlockPaint
+> A MacPaint™-like Dapp for the Blockstack ecosystem
+
+- - -
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
