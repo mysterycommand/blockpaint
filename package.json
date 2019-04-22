@@ -8,6 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "reset": "yarn clean node_modules/",
+    "clean": "rm -rf build/",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint 'src/**/*.{j,t}s?(x)'",
