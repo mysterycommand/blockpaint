@@ -9,6 +9,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint 'src/**/*.{j,t}s?(x)'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
