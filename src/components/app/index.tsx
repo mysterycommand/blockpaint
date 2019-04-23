@@ -1,7 +1,7 @@
 import React, { Component, MouseEvent } from 'react';
 import logo from '../../logo.png';
 
-import { AppConfig, UserSession } from 'blockstack';
+import { AppConfig, Person, UserSession } from 'blockstack';
 
 import './style.css';
 
@@ -31,24 +31,44 @@ class App extends Component<{}, AppState> {
   signOut = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     this.state.userSession.signUserOut();
+    window.location.assign(window.location.origin);
   };
 
   render() {
     const { userSession } = this.state;
 
+    const isUserSignedIn = userSession.isUserSignedIn();
+    const isSignInPending = userSession.isSignInPending();
+
+    let content = (
+      <button onClick={this.signIn} className="App-button">
+        Sign in
+      </button>
+    );
+
+    if (isUserSignedIn) {
+      const { profile } = userSession.loadUserData();
+      const person = new Person(profile);
+
+      content = (
+        <div>
+          <p>Hello, {person.name() || 'nameless person'}</p>
+          <button onClick={this.signOut} className="App-button">
+            Sign out
+          </button>
+        </div>
+      );
+    } else if (isSignInPending) {
+      userSession.handlePendingSignIn().then(userData => {
+        window.location.assign(window.location.origin);
+      });
+    }
+
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          {userSession.isUserSignedIn() ? (
-            <button onClick={this.signOut} className="App-button">
-              Sign out
-            </button>
-          ) : (
-            <button onClick={this.signIn} className="App-button">
-              Sign in
-            </button>
-          )}
+          {content}
         </header>
       </div>
     );
