@@ -25,7 +25,20 @@ class App extends Component<{}, AppState> {
 
   signIn = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    this.state.userSession.redirectToSignIn();
+
+    /**
+     * @see: https://github.com/zone117x/blockstack-monero/blob/master/src/main.ts#L40-L46
+     */
+    const { origin, hostname, pathname } = window.location;
+    const manifest =
+      hostname === 'localhost' || hostname === '127.0.0.1'
+        ? 'manifest.dev.json'
+        : 'manifest.json';
+
+    this.state.userSession.redirectToSignIn(
+      `${origin}${pathname}`,
+      `${origin}${pathname}${manifest}`,
+    );
   };
 
   signOut = (event: MouseEvent<HTMLButtonElement>) => {
