@@ -1,5 +1,5 @@
 import React, { Component, MouseEvent } from 'react';
-import logo from '../../logo.png';
+import logo from '../../logo.svg';
 
 import { AppConfig, Person, UserSession } from 'blockstack';
 
@@ -44,7 +44,9 @@ class App extends Component<{}, AppState> {
   signOut = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     this.state.userSession.signUserOut();
-    window.location.assign(window.location.origin);
+
+    const { origin, pathname } = window.location;
+    window.location.assign(`${origin}${pathname}`);
   };
 
   render() {
@@ -72,8 +74,9 @@ class App extends Component<{}, AppState> {
         </div>
       );
     } else if (isSignInPending) {
-      userSession.handlePendingSignIn().then(userData => {
-        window.location.assign(window.location.origin);
+      userSession.handlePendingSignIn().then((/* userData */) => {
+        const { origin, pathname } = window.location;
+        window.location.assign(`${origin}${pathname}`);
       });
     }
 
