@@ -56,7 +56,7 @@ deploy:
     allow_empty_commit: true
     skip_cleanup: true
     keep_history: true
-    local_dir: dist/
+    local_dir: build/
     on:
       branch: master
 

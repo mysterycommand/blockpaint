@@ -10685,10 +10685,9 @@ selfsigned@^1.9.1:
   dependencies:
     node-forge "0.7.5"
 
-semantic-release-github-pr@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/semantic-release-github-pr/-/semantic-release-github-pr-5.1.0.tgz#f04deed8eea0c7dbaa5fdb37ac13c2a27e99947a"
-  integrity sha512-x9WEmmdrgYcOtfPvDEgNIyUWzwInxj4uVwmLRLd9eDOp3Y4Ud2z9GzBFsK5U6wQiKLZ6KHOegKLQRRy3nLa8Dg==
+"semantic-release-github-pr@https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35":
+  version "0.0.0-development"
+  resolved "https://github.com/mysterycommand/semantic-release-github-pr.git#9f1cce634b1c373551b61ed276497304dd1a27e9"
   dependencies:
     execa "^0.8.0"
     github "^12.1.0"

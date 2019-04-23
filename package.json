@@ -2,11 +2,14 @@
   "name": "blockpaint",
   "version": "0.1.0",
   "description": "A MacPaint™-like Dapp for the Blockstack ecosystem",
-  "repository": "git@github.com:mysterycommand/ferric.git",
+  "repository": "git@github.com:mysterycommand/blockpaint.git",
+  "homepage": "https://mysterycommand.github.io/blockpaint",
   "author": "Matt Hayes <matt@mysterycommand.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "reset": "yarn clean node_modules/",
+    "clean": "rm -rf build/",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint 'src/**/*.{j,t}s?(x)'",
@@ -39,7 +42,7 @@
     "prettier": "1.17.0",
     "react-scripts": "3.0.0",
     "semantic-release": "15.13.3",
-    "semantic-release-github-pr": "5.1.0",
+    "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
     "typescript": "3.4.4"
   },
   "config": {
