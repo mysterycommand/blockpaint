@@ -42,7 +42,7 @@
     "prettier": "1.17.0",
     "react-scripts": "3.0.0",
     "semantic-release": "15.13.3",
-    "semantic-release-github-pr": "5.1.0",
+    "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
     "typescript": "3.4.4"
   },
   "config": {
