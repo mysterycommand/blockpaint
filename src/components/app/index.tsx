@@ -45,8 +45,8 @@ class App extends Component<{}, AppState> {
     event.preventDefault();
     this.state.userSession.signUserOut();
 
-    const { assign, origin, pathname } = window.location;
-    assign(`${origin}${pathname}`);
+    const { origin, pathname } = window.location;
+    window.location.assign(`${origin}${pathname}`);
   };
 
   render() {
@@ -75,8 +75,8 @@ class App extends Component<{}, AppState> {
       );
     } else if (isSignInPending) {
       userSession.handlePendingSignIn().then((/* userData */) => {
-        const { assign, origin, pathname } = window.location;
-        assign(`${origin}${pathname}`);
+        const { origin, pathname } = window.location;
+        window.location.assign(`${origin}${pathname}`);
       });
     }
 
