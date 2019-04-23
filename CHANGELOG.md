@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/mysterycommand/blockpaint/compare/v1.1.0...v1.1.1) (2019-04-23)
+
+
+### Bug Fixes
+
+* **app/index:** do a little location sniffing to direct the authentication back to the right manifes ([3f2ac78](https://github.com/mysterycommand/blockpaint/commit/3f2ac78))
+
 # [1.1.0](https://github.com/mysterycommand/blockpaint/compare/v1.0.0...v1.1.0) (2019-04-23)
 
 
