@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/mysterycommand/blockpaint/compare/v1.1.1...v1.1.2) (2019-04-23)
+
+
+### Bug Fixes
+
+* an empty fix commit to make sure this deploys ([1c5917a](https://github.com/mysterycommand/blockpaint/commit/1c5917a))
+
 ## [1.1.1](https://github.com/mysterycommand/blockpaint/compare/v1.1.0...v1.1.1) (2019-04-23)
 
 
