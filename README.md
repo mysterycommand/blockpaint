@@ -1,4 +1,4 @@
-# [BlockPaint](https://mysterycommand.github.io/blockpaint/)
+# [blockpaint](https://mysterycommand.github.io/blockpaint/)
 > A MacPaint™-like Dapp for the Blockstack ecosystem
 
 - - -
