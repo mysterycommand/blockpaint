@@ -49,9 +49,11 @@ process.argv.slice(2).forEach(arg => {
   }).forEach(([key, value]) => {
     const baseName = kebabCase(key).replace('-', '.');
 
-    const filePath = path.join(componentsDir, componentDir, baseName);
+    const fileDir = path.join(componentsDir, componentDir);
+    const filePath = path.join(fileDir, baseName);
     const fileContents = value({ componentName, componentDir });
 
+    fs.existsSync(fileDir) || fs.mkdirSync(fileDir);
     fs.writeFileSync(filePath, fileContents);
   });
 });
