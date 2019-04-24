@@ -38,33 +38,38 @@ it('renders without crashing', () => {
 
 `;
 
-process.argv.slice(2).forEach(arg => {
-  const componentName = upperFirst(camelCase(arg));
-  const componentDir = kebabCase(arg);
+function cli(args) {
+  args.forEach(arg => {
+    const componentName = upperFirst(camelCase(arg));
+    const componentDir = kebabCase(arg);
 
-  Object.entries({
-    indexTsx,
-    styleCss,
-    testsTsx,
-  }).forEach(([key, value]) => {
-    const baseName = kebabCase(key).replace('-', '.');
+    Object.entries({
+      indexTsx,
+      styleCss,
+      testsTsx,
+    }).forEach(([key, value]) => {
+      const baseName = kebabCase(key).replace('-', '.');
 
-    const fileDir = path.join(componentsDir, componentDir);
-    const filePath = path.join(fileDir, baseName);
-    const fileContents = value({ componentName, componentDir });
+      const fileDir = path.join(componentsDir, componentDir);
+      const filePath = path.join(fileDir, baseName);
+      const fileContents = value({ componentName, componentDir });
 
-    fs.existsSync(fileDir) || fs.mkdirSync(fileDir);
+      fs.existsSync(fileDir) || fs.mkdirSync(fileDir);
 
-    if (fs.existsSync(filePath)) {
-      console.warn(
-        `file already exists at ${path.relative(
-          process.cwd(),
-          filePath,
-        )} skipping`,
-      );
-      return;
-    }
+      if (fs.existsSync(filePath)) {
+        console.warn(
+          `file already exists at ${path.relative(
+            process.cwd(),
+            filePath,
+          )} skipping`,
+        );
+        return;
+      }
 
-    fs.writeFileSync(filePath, fileContents);
+      fs.writeFileSync(filePath, fileContents);
+    });
   });
-});
+}
+
+cli(process.argv.slice(2));
+module.exports = cli;
