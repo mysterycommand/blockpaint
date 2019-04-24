@@ -10,10 +10,11 @@
   "scripts": {
     "reset": "yarn clean node_modules/",
     "clean": "rm -rf build/",
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "lint": "eslint 'src/**/*.{j,t}s?(x)'",
-    "test": "node scripts/test.js"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "engines": {
     "node": "10.15.3",
@@ -26,6 +27,7 @@
     "react-dom": "16.8.6"
   },
   "devDependencies": {
+    "@craco/craco": "5.0.2",
     "@semantic-release/changelog": "3.0.2",
     "@semantic-release/commit-analyzer": "6.1.0",
     "@semantic-release/git": "7.0.8",
@@ -37,10 +39,13 @@
     "@types/react": "16.8.14",
     "@types/react-dom": "16.8.4",
     "commitizen": "3.1.1",
+    "craco-blockstack": "1.0.2",
     "cz-conventional-changelog": "2.1.0",
     "prettier": "1.17.0",
+    "react-scripts": "3.0.0",
     "semantic-release": "15.13.3",
-    "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35"
+    "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
+    "typescript": "3.4.5"
   },
   "config": {
     "commitizen": {
@@ -67,45 +72,6 @@
       "src/components/**/*.{j,t}s?(x)",
       "!<rootDir>/node_modules/"
     ],
-    "setupFiles": [
-      "react-app-polyfill/jsdom"
-    ],
-    "setupFilesAfterEnv": [],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
-    ],
-    "testEnvironment": "jest-environment-jsdom-fourteen",
-    "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "modulePaths": [],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ],
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
-    ],
     "coverageReporters": [
       "text"
     ],
@@ -117,10 +83,5 @@
         "statements": 90
       }
     }
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
   }
 }
