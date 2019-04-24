@@ -10,10 +10,10 @@
   "scripts": {
     "reset": "yarn clean node_modules/",
     "clean": "rm -rf build/",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "craco start",
+    "build": "craco build",
     "lint": "eslint 'src/**/*.{j,t}s?(x)'",
-    "test": "react-scripts test",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "engines": {
