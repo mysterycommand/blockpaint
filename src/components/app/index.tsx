@@ -4,6 +4,7 @@ import logo from '../../logo.svg';
 import { AppConfig, Person, UserSession } from 'blockstack';
 
 import './style.css';
+import Canvas from '../canvas';
 
 type AppState = {
   appConfig: AppConfig;
@@ -60,14 +61,7 @@ class App extends Component<{}, AppState> {
       const { profile } = userSession.loadUserData();
       const person = new Person(profile);
 
-      content = (
-        <div>
-          <p>Hello, {person.name() || 'nameless person'}</p>
-          <button onClick={this.signOut} className="App-button">
-            Sign out
-          </button>
-        </div>
-      );
+      content = <Canvas person={person} signOut={this.signOut} />;
     } else if (isSignInPending) {
       userSession.handlePendingSignIn().then((/* userData */) => {
         const { origin, pathname } = window.location;
