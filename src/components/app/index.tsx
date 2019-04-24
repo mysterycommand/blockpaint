@@ -29,15 +29,10 @@ class App extends Component<{}, AppState> {
     /**
      * @see: https://github.com/zone117x/blockstack-monero/blob/master/src/main.ts#L40-L46
      */
-    const { origin, hostname, pathname } = window.location;
-    const manifest =
-      hostname === 'localhost' || hostname === '127.0.0.1'
-        ? 'manifest.dev.json'
-        : 'manifest.json';
-
+    const { origin, pathname } = window.location;
     this.state.userSession.redirectToSignIn(
       `${origin}${pathname}`,
-      `${origin}${pathname}${manifest}`,
+      `${origin}${pathname}manifest.json`,
     );
   };
 
