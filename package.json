@@ -14,7 +14,8 @@
     "build": "craco build",
     "lint": "eslint 'src/**/*.{j,t}s?(x)'",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "component": "node ./src/cli"
   },
   "engines": {
     "node": "10.15.3",
