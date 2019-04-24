@@ -54,6 +54,17 @@ process.argv.slice(2).forEach(arg => {
     const fileContents = value({ componentName, componentDir });
 
     fs.existsSync(fileDir) || fs.mkdirSync(fileDir);
+
+    if (fs.existsSync(filePath)) {
+      console.warn(
+        `file already exists at ${path.relative(
+          process.cwd(),
+          filePath,
+        )} skipping`,
+      );
+      return;
+    }
+
     fs.writeFileSync(filePath, fileContents);
   });
 });
