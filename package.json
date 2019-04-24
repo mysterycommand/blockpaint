@@ -79,7 +79,7 @@
     "prettier": "1.17.0",
     "react-app-polyfill": "1.0.0",
     "react-dev-utils": "9.0.0",
-    "resolve": "1.10.0",
+    "resolve": "1.10.1",
     "sass-loader": "7.1.0",
     "semantic-release": "15.13.3",
     "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
