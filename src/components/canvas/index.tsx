@@ -10,8 +10,10 @@ type CanvasProps = {
 
 const Canvas: FC<CanvasProps> = ({ person, signOut }) => (
   <div>
-    <p>Hello, {person.name() || 'nameless person'}</p>
-    <button onClick={signOut}>Sign out</button>
+    <p>
+      Hello, {person.name() || 'nameless person'}{' '}
+      <button onClick={signOut}>Sign out</button>
+    </p>
     <canvas />
   </div>
 );

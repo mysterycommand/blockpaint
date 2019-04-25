@@ -1,10 +1,9 @@
 import React, { Component, MouseEvent } from 'react';
-import logo from '../../logo.svg';
-
 import { AppConfig, Person, UserSession } from 'blockstack';
 
 import './style.css';
-import Canvas from '../canvas';
+import Workspace from '../workspace';
+import Splash from '../splash';
 
 type AppState = {
   appConfig: AppConfig;
@@ -62,20 +61,15 @@ class App extends Component<{}, AppState> {
     const { userSession } = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          {userSession.isUserSignedIn() ? (
-            <Canvas
-              person={new Person(userSession.loadUserData().profile)}
-              signOut={this.signOut}
-            />
-          ) : (
-            <button onClick={this.signIn} className="App-button">
-              Sign in
-            </button>
-          )}
-        </header>
+      <div className="app">
+        {userSession.isUserSignedIn() ? (
+          <Workspace
+            person={new Person(userSession.loadUserData().profile)}
+            signOut={this.signOut}
+          />
+        ) : (
+          <Splash signIn={this.signIn} />
+        )}
       </div>
     );
   }

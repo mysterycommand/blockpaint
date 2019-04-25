@@ -1,12 +1,15 @@
-
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import ReactDOM from 'react-dom';
 
 import Splash from '.';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Splash />, div);
+
+  const mockSignIn = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  ReactDOM.render(<Splash signIn={mockSignIn} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
-
