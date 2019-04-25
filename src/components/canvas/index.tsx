@@ -1,21 +1,9 @@
-import React, { FC, MouseEvent } from 'react';
-import { Person } from 'blockstack';
+import React, { FC } from 'react';
 
 import './style.css';
 
-type CanvasProps = {
-  person: Person;
-  signOut: (event: MouseEvent<HTMLButtonElement>) => void;
-};
+type CanvasProps = {};
 
-const Canvas: FC<CanvasProps> = ({ person, signOut }) => (
-  <div>
-    <p>
-      Hello, {person.name() || 'nameless person'}{' '}
-      <button onClick={signOut}>Sign out</button>
-    </p>
-    <canvas />
-  </div>
-);
+const Canvas: FC<CanvasProps> = () => <canvas />;
 
 export default Canvas;

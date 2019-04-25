@@ -14,11 +14,3 @@
   max-width: 882px;
   pointer-events: none;
 }
-
-.splash-button {
-  background: transparent;
-  border: 0;
-  font-size: calc(10px + 2vmin);
-  color: #ffffff;
-  margin-top: 1em;
-}

@@ -1,8 +1,10 @@
 import React, { FC, MouseEvent } from 'react';
 
-import logo from '../../logo.svg';
+import Button from '../button';
 
 import './style.css';
+
+import logo from '../../logo.svg';
 
 type SplashProps = {
   signIn: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -11,10 +13,7 @@ type SplashProps = {
 const Splash: FC<SplashProps> = ({ signIn }) => (
   <header className="splash">
     <img src={logo} className="splash-logo" alt="logo" />
-
-    <button onClick={signIn} className="splash-button">
-      Sign in
-    </button>
+    <Button onClick={signIn}>Sign in</Button>
   </header>
 );
 

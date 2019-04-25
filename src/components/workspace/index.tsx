@@ -4,6 +4,7 @@ import { Person } from 'blockstack';
 import Canvas from '../canvas';
 
 import './style.css';
+import Button from '../button';
 
 type WorkspaceProps = {
   person: Person;
@@ -12,7 +13,11 @@ type WorkspaceProps = {
 
 const Workspace: FC<WorkspaceProps> = ({ person, signOut }) => (
   <div className="workspace">
-    <Canvas person={person} signOut={signOut} />
+    <p>
+      Hello, {person.name() || 'nameless person'}{' '}
+      <Button onClick={signOut}>Sign out</Button>
+    </p>
+    <Canvas />
   </div>
 );
 
