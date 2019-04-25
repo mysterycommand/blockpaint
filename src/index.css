@@ -8,4 +8,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: #fe54a1;
+
+  line-height: 0;
+  overflow: hidden;
+}
+
+#root {
+  line-height: normal;
 }
