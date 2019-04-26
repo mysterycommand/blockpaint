@@ -8,6 +8,7 @@ import Button from '../button';
 
 type WorkspaceProps = {
   canvasRef: RefObject<HTMLCanvasElement>;
+  fetchPainting: () => Promise<string | ArrayBuffer>;
   person: Person;
   savePainting: (event: MouseEvent<HTMLButtonElement>) => void;
   signOut: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -15,6 +16,7 @@ type WorkspaceProps = {
 
 const Workspace: FC<WorkspaceProps> = ({
   canvasRef,
+  fetchPainting,
   person,
   savePainting,
   signOut,
@@ -26,7 +28,7 @@ const Workspace: FC<WorkspaceProps> = ({
       </h2>
       <Button onClick={signOut}>Sign out</Button>
     </header>
-    <Canvas canvasRef={canvasRef} />
+    <Canvas canvasRef={canvasRef} fetchPainting={fetchPainting} />
     <footer className="footer">
       <i />
       <Button onClick={savePainting}>Save</Button>

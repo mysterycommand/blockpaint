@@ -4,6 +4,7 @@ import './style.css';
 
 type CanvasProps = {
   canvasRef: RefObject<HTMLCanvasElement>;
+  fetchPainting: () => Promise<string | ArrayBuffer>;
 };
 
 type CanvasState = {
@@ -26,11 +27,35 @@ class Canvas extends Component<CanvasProps, CanvasState> {
   public componentDidMount() {
     const {
       canvasRef: { current },
+      fetchPainting,
     } = this.props;
 
-    if (!current) {
+    if (!(current && fetchPainting)) {
       return;
     }
+
+    fetchPainting().then(file => {
+      const { data } = JSON.parse((file as string) || '{}');
+
+      if (!data) {
+        return;
+      }
+
+      const { canvasContext } = this.state;
+
+      if (!canvasContext) {
+        return;
+      }
+
+      const ctx = canvasContext as CanvasRenderingContext2D;
+
+      const img = new Image(current.width, current.height);
+      img.src = data;
+
+      setImmediate(() => {
+        ctx.drawImage(img, 0, 0);
+      });
+    });
 
     this.setState({
       canvasContext: current.getContext('2d'),

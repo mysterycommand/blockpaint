@@ -51,17 +51,33 @@ class App extends Component<{}, AppState> {
   savePainting = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const { userSession } = this.state;
+    const { current } = this.canvasRef;
+
+    if (!current) {
+      return;
+    }
 
     userSession.putFile(
       'painting.json',
       JSON.stringify({
-        data: '',
+        data: current.toDataURL('image/png'),
         createdAt: Date.now(),
       }),
       {
         encrypt: false,
       },
     );
+  };
+
+  fetchPainting = () => {
+    const { userSession } = this.state;
+    const { current } = this.canvasRef;
+
+    return !current
+      ? Promise.resolve(JSON.stringify({}))
+      : userSession.getFile('painting.json', {
+          decrypt: false,
+        });
   };
 
   UNSAFE_componentWillMount() {
@@ -83,6 +99,7 @@ class App extends Component<{}, AppState> {
         {userSession.isUserSignedIn() ? (
           <Workspace
             canvasRef={this.canvasRef}
+            fetchPainting={this.fetchPainting}
             person={new Person(userSession.loadUserData().profile)}
             savePainting={this.savePainting}
             signOut={this.signOut}

@@ -8,6 +8,7 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
 
   const mockCanvasRef = React.createRef<HTMLCanvasElement>();
+  const mockFetch = () => Promise.resolve(JSON.stringify({}));
   const mockPerson = new Person({ name: 'John Doe' });
   const mockHandler = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -16,6 +17,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <Workspace
       canvasRef={mockCanvasRef}
+      fetchPainting={mockFetch}
       person={mockPerson}
       savePainting={mockHandler}
       signOut={mockHandler}
