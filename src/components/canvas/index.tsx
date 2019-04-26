@@ -1,8 +1,11 @@
-import React, { Component, MouseEvent, TouchEvent } from 'react';
+import React, { Component, MouseEvent, RefObject, TouchEvent } from 'react';
 
 import './style.css';
 
-type CanvasProps = {};
+type CanvasProps = {
+  canvasRef: RefObject<HTMLCanvasElement>;
+};
+
 type CanvasState = {
   canvasContext: CanvasRenderingContext2D | null;
   canvasRect: ClientRect | DOMRect | null;
@@ -20,10 +23,10 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     prevY: -1,
   };
 
-  private el = React.createRef<HTMLCanvasElement>();
-
   public componentDidMount() {
-    const { current } = this.el;
+    const {
+      canvasRef: { current },
+    } = this.props;
 
     if (!current) {
       return;
@@ -36,9 +39,11 @@ class Canvas extends Component<CanvasProps, CanvasState> {
   }
 
   public render() {
+    const { canvasRef } = this.props;
+
     return (
       <canvas
-        ref={this.el}
+        ref={canvasRef}
         className="canvas"
         width="1080"
         height="1080"
@@ -108,7 +113,9 @@ class Canvas extends Component<CanvasProps, CanvasState> {
   };
 
   private paint = (clientX: number, clientY: number) => {
-    const { current } = this.el;
+    const {
+      canvasRef: { current },
+    } = this.props;
     const { canvasContext, canvasRect, isPainting, prevX, prevY } = this.state;
 
     if (!(current && canvasContext && canvasRect && isPainting)) {

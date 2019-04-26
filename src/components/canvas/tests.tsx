@@ -6,6 +6,8 @@ import Canvas from '.';
 it('renders without crashing', () => {
   const div = document.createElement('div');
 
-  ReactDOM.render(<Canvas />, div);
+  const mockCanvasRef = React.createRef<HTMLCanvasElement>();
+
+  ReactDOM.render(<Canvas canvasRef={mockCanvasRef} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

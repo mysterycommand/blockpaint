@@ -7,6 +7,7 @@ import Workspace from '.';
 it('renders without crashing', () => {
   const div = document.createElement('div');
 
+  const mockCanvasRef = React.createRef<HTMLCanvasElement>();
   const mockPerson = new Person({ name: 'John Doe' });
   const mockHandler = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -14,9 +15,10 @@ it('renders without crashing', () => {
 
   ReactDOM.render(
     <Workspace
+      canvasRef={mockCanvasRef}
       person={mockPerson}
-      signOut={mockHandler}
       savePainting={mockHandler}
+      signOut={mockHandler}
     />,
     div,
   );

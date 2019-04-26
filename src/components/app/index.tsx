@@ -11,6 +11,8 @@ type AppState = {
 };
 
 class App extends Component<{}, AppState> {
+  private canvasRef = React.createRef<HTMLCanvasElement>();
+
   constructor(props: {}) {
     super(props);
 
@@ -50,7 +52,16 @@ class App extends Component<{}, AppState> {
     event.preventDefault();
     const { userSession } = this.state;
 
-    userSession.putFile('painting.bmp', '', {});
+    userSession.putFile(
+      'painting.json',
+      JSON.stringify({
+        data: '',
+        createdAt: Date.now(),
+      }),
+      {
+        encrypt: false,
+      },
+    );
   };
 
   UNSAFE_componentWillMount() {
@@ -71,9 +82,10 @@ class App extends Component<{}, AppState> {
       <div className="app">
         {userSession.isUserSignedIn() ? (
           <Workspace
+            canvasRef={this.canvasRef}
             person={new Person(userSession.loadUserData().profile)}
-            signOut={this.signOut}
             savePainting={this.savePainting}
+            signOut={this.signOut}
           />
         ) : (
           <Splash signIn={this.signIn} />
