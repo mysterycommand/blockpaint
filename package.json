@@ -10,11 +10,12 @@
   "scripts": {
     "reset": "yarn clean node_modules/",
     "clean": "rm -rf build/",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "craco start",
+    "build": "craco build",
     "lint": "eslint 'src/**/*.{j,t}s?(x)'",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "craco test",
+    "eject": "react-scripts eject",
+    "component": "node ./src/cli"
   },
   "engines": {
     "node": "10.15.3",
@@ -41,6 +42,8 @@
     "commitizen": "3.1.1",
     "craco-blockstack": "1.0.2",
     "cz-conventional-changelog": "2.1.0",
+    "jest-canvas-mock": "2.0.0",
+    "lodash": "4.17.11",
     "prettier": "1.17.0",
     "react-scripts": "3.0.0",
     "semantic-release": "15.13.3",

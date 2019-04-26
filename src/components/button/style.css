@@ -1,0 +1,7 @@
+.button {
+  background: transparent;
+  border: 0;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin-top: 1em;
+}

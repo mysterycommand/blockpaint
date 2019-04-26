@@ -1,9 +1,9 @@
 import React, { Component, MouseEvent } from 'react';
-import logo from '../../logo.svg';
-
 import { AppConfig, Person, UserSession } from 'blockstack';
 
 import './style.css';
+import Workspace from '../workspace';
+import Splash from '../splash';
 
 type AppState = {
   appConfig: AppConfig;
@@ -11,10 +11,12 @@ type AppState = {
 };
 
 class App extends Component<{}, AppState> {
+  private canvasRef = React.createRef<HTMLCanvasElement>();
+
   constructor(props: {}) {
     super(props);
 
-    const appConfig = new AppConfig();
+    const appConfig = new AppConfig(['store_write', 'publish_data']);
     const userSession = new UserSession({ appConfig });
 
     this.state = {
@@ -25,12 +27,13 @@ class App extends Component<{}, AppState> {
 
   signIn = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    const { userSession } = this.state;
 
     /**
      * @see: https://github.com/zone117x/blockstack-monero/blob/master/src/main.ts#L40-L46
      */
     const { origin, pathname } = window.location;
-    this.state.userSession.redirectToSignIn(
+    userSession.redirectToSignIn(
       `${origin}${pathname}`,
       `${origin}${pathname}manifest.json`,
     );
@@ -38,49 +41,72 @@ class App extends Component<{}, AppState> {
 
   signOut = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    this.state.userSession.signUserOut();
+    const { userSession } = this.state;
 
+    userSession.signUserOut();
     const { origin, pathname } = window.location;
     window.location.assign(`${origin}${pathname}`);
   };
 
-  render() {
+  savePainting = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { userSession } = this.state;
+    const { current } = this.canvasRef;
+
+    if (!current) {
+      return;
+    }
+
+    userSession.putFile(
+      'painting.json',
+      JSON.stringify({
+        data: current.toDataURL('image/png'),
+        createdAt: Date.now(),
+      }),
+      {
+        encrypt: false,
+      },
+    );
+  };
+
+  fetchPainting = () => {
+    const { userSession } = this.state;
+    const { current } = this.canvasRef;
+
+    return !current
+      ? Promise.resolve(JSON.stringify({}))
+      : userSession.getFile('painting.json', {
+          decrypt: false,
+        });
+  };
+
+  UNSAFE_componentWillMount() {
     const { userSession } = this.state;
 
-    const isUserSignedIn = userSession.isUserSignedIn();
-    const isSignInPending = userSession.isSignInPending();
-
-    let content = (
-      <button onClick={this.signIn} className="App-button">
-        Sign in
-      </button>
-    );
-
-    if (isUserSignedIn) {
-      const { profile } = userSession.loadUserData();
-      const person = new Person(profile);
-
-      content = (
-        <div>
-          <p>Hello, {person.name() || 'nameless person'}</p>
-          <button onClick={this.signOut} className="App-button">
-            Sign out
-          </button>
-        </div>
-      );
-    } else if (isSignInPending) {
+    if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((/* userData */) => {
         const { origin, pathname } = window.location;
         window.location.assign(`${origin}${pathname}`);
       });
     }
+  }
+
+  render() {
+    const { userSession } = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          {content}
-        </header>
+      <div className="app">
+        {userSession.isUserSignedIn() ? (
+          <Workspace
+            canvasRef={this.canvasRef}
+            fetchPainting={this.fetchPainting}
+            person={new Person(userSession.loadUserData().profile)}
+            savePainting={this.savePainting}
+            signOut={this.signOut}
+          />
+        ) : (
+          <Splash signIn={this.signIn} />
+        )}
       </div>
     );
   }

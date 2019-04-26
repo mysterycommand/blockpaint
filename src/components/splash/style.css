@@ -1,0 +1,16 @@
+.splash {
+  padding: 2ch;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.splash-logo {
+  width: 100%;
+  max-width: 882px;
+  pointer-events: none;
+}
