@@ -5,6 +5,7 @@ module.exports = {
   jest: {
     configure: config => ({
       ...config,
+      setupFiles: [...config.setupFiles, 'jest-canvas-mock'],
       testMatch: [...config.testMatch, '<rootDir>/src/**/tests.{j,t}s?(x)'],
     }),
   },

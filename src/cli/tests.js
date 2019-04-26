@@ -14,11 +14,20 @@ const cli = require('.');
 
 describe('cli', () => {
   const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync');
-  const consoleWarnSpy = jest.spyOn(console, 'warn');
+  const origConsoleWarn = console.warn;
+
+  beforeAll(() => {
+    console.warn = jest.fn();
+  });
+
+  afterAll(() => {
+    console.warn = origConsoleWarn;
+  });
 
   it("tries to write if the file doesn't exist", () => {
     writeFileSyncSpy.mockClear();
 
+    const consoleWarnSpy = jest.spyOn(console, 'warn');
     cli(['test-component']);
 
     expect(writeFileSyncSpy).toHaveBeenCalledTimes(3);
@@ -29,6 +38,7 @@ describe('cli', () => {
     writeFileSyncSpy.mockClear();
     fs.existsSync.mockReturnValue(true);
 
+    const consoleWarnSpy = jest.spyOn(console, 'warn');
     cli(['test-component']);
 
     expect(writeFileSyncSpy).toHaveBeenCalledTimes(0);
