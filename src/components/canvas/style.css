@@ -1,5 +1,6 @@
 .canvas {
   background: white;
-  width: 100%;
+  cursor: pointer;
   margin: 1em 0;
+  width: 100%;
 }
