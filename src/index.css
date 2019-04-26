@@ -11,9 +11,9 @@ body {
 
   line-height: 0;
   overflow: hidden;
+  position: fixed;
 }
 
 #root {
   line-height: normal;
-  overflow: hidden;
 }

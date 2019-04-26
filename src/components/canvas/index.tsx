@@ -7,6 +7,8 @@ type CanvasState = {
   canvasContext: CanvasRenderingContext2D | null;
   canvasRect: ClientRect | DOMRect | null;
   isPainting: boolean;
+  prevX: number;
+  prevY: number;
 };
 
 class Canvas extends Component<CanvasProps, CanvasState> {
@@ -14,6 +16,8 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     canvasContext: null,
     canvasRect: null,
     isPainting: false,
+    prevX: -1,
+    prevY: -1,
   };
 
   private el = React.createRef<HTMLCanvasElement>();
@@ -52,7 +56,7 @@ class Canvas extends Component<CanvasProps, CanvasState> {
 
   private isMousePainting = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
-    this.setState({ isPainting: event.buttons !== 0 });
+    this.setState({ isPainting: event.buttons !== 0, prevX: -1, prevY: -1 });
   };
 
   private mousePaint = (event: MouseEvent<HTMLCanvasElement>) => {
@@ -67,7 +71,11 @@ class Canvas extends Component<CanvasProps, CanvasState> {
      * @see: https://www.chromestatus.com/features/5093566007214080
      */
     // event.preventDefault();
-    this.setState({ isPainting: event.touches.length !== 0 });
+    this.setState({
+      isPainting: event.touches.length !== 0,
+      prevX: -1,
+      prevY: -1,
+    });
   };
 
   private touchPaint = (event: TouchEvent<HTMLCanvasElement>) => {
@@ -95,7 +103,7 @@ class Canvas extends Component<CanvasProps, CanvasState> {
 
   private paint = (clientX: number, clientY: number) => {
     const { current } = this.el;
-    const { canvasContext, canvasRect, isPainting } = this.state;
+    const { canvasContext, canvasRect, isPainting, prevX, prevY } = this.state;
 
     if (!(current && canvasContext && canvasRect && isPainting)) {
       return;
@@ -110,12 +118,16 @@ class Canvas extends Component<CanvasProps, CanvasState> {
       );
     }
 
-    const s = 4;
-    const hs = s / 2;
-    const fillX = (clientX - x) * (current.width / width) - hs;
-    const fillY = (clientY - y) * (current.height / height) - hs;
+    const fillX = (clientX - x) * (current.width / width);
+    const fillY = (clientY - y) * (current.height / height);
 
-    ctx.fillRect(fillX, fillY, s, s);
+    this.setState({ prevX: fillX, prevY: fillY });
+
+    if (prevX !== -1 && prevY !== -1) {
+      ctx.moveTo(prevX, prevY);
+      ctx.lineTo(fillX, fillY);
+      ctx.stroke();
+    }
   };
 }
 
