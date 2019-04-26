@@ -38,21 +38,21 @@ class Canvas extends Component<CanvasProps, CanvasState> {
         className="canvas"
         width="1080"
         height="1080"
-        onMouseEnter={this.togglePainting}
-        onMouseDown={this.togglePainting}
-        onMouseMove={this.paint}
-        onMouseUp={this.togglePainting}
-        onMouseLeave={this.togglePainting}
+        onMouseEnter={this.setIsPainting}
+        onMouseDown={this.setIsPainting}
+        onMouseMove={this.mousePaint}
+        onMouseUp={this.setIsPainting}
+        onMouseLeave={this.setIsPainting}
       />
     );
   }
 
-  private togglePainting = (event: MouseEvent<HTMLCanvasElement>) => {
+  private setIsPainting = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
     this.setState({ isPainting: event.buttons !== 0 });
   };
 
-  private paint = (event: MouseEvent<HTMLCanvasElement>) => {
+  private mousePaint = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
 
     const { current } = this.el;
