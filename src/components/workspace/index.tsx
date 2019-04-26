@@ -9,9 +9,10 @@ import Button from '../button';
 type WorkspaceProps = {
   person: Person;
   signOut: (event: MouseEvent<HTMLButtonElement>) => void;
+  savePainting: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Workspace: FC<WorkspaceProps> = ({ person, signOut }) => (
+const Workspace: FC<WorkspaceProps> = ({ person, signOut, savePainting }) => (
   <div className="workspace">
     <header className="header">
       <h2 className="current-user">
@@ -20,6 +21,10 @@ const Workspace: FC<WorkspaceProps> = ({ person, signOut }) => (
       <Button onClick={signOut}>Sign out</Button>
     </header>
     <Canvas />
+    <footer className="footer">
+      <i />
+      <Button onClick={savePainting}>Save</Button>
+    </footer>
   </div>
 );
 

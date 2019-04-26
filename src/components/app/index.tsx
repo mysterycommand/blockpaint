@@ -46,6 +46,13 @@ class App extends Component<{}, AppState> {
     window.location.assign(`${origin}${pathname}`);
   };
 
+  savePainting = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { userSession } = this.state;
+
+    userSession.putFile('painting.bmp', '', {});
+  };
+
   UNSAFE_componentWillMount() {
     const { userSession } = this.state;
 
@@ -66,6 +73,7 @@ class App extends Component<{}, AppState> {
           <Workspace
             person={new Person(userSession.loadUserData().profile)}
             signOut={this.signOut}
+            savePainting={this.savePainting}
           />
         ) : (
           <Splash signIn={this.signIn} />
