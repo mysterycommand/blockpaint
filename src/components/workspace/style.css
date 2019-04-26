@@ -1,7 +1,13 @@
-.header {
+.workspace {
+  line-height: 0;
+}
+
+.header,
+.footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  line-height: normal;
 }
 
 .current-user {
