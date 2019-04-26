@@ -38,17 +38,18 @@ class Canvas extends Component<CanvasProps, CanvasState> {
         className="canvas"
         width="1080"
         height="1080"
-        onMouseDown={this.beginPaint}
+        onMouseEnter={this.togglePainting}
+        onMouseDown={this.togglePainting}
         onMouseMove={this.paint}
-        onMouseUp={this.endPaint}
-        onMouseLeave={this.endPaint}
+        onMouseUp={this.togglePainting}
+        onMouseLeave={this.togglePainting}
       />
     );
   }
 
-  private beginPaint = (event: MouseEvent<HTMLCanvasElement>) => {
+  private togglePainting = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
-    this.setState({ isPainting: true });
+    this.setState({ isPainting: event.buttons !== 0 });
   };
 
   private paint = (event: MouseEvent<HTMLCanvasElement>) => {
@@ -76,11 +77,6 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     const fillY = (event.clientY - y) * (current.height / height) - hs;
 
     ctx.fillRect(fillX, fillY, s, s);
-  };
-
-  private endPaint = (event: MouseEvent<HTMLCanvasElement>) => {
-    event.preventDefault();
-    this.setState({ isPainting: false });
   };
 }
 
