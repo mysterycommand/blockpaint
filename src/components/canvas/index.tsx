@@ -51,10 +51,9 @@ class Canvas extends Component<CanvasProps, CanvasState> {
 
       const img = new Image(current.width, current.height);
       img.src = data;
-
-      setImmediate(() => {
+      img.onload = () => {
         ctx.drawImage(img, 0, 0);
-      });
+      };
     });
 
     this.setState({
