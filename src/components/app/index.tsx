@@ -62,14 +62,10 @@ class App extends Component<{}, AppState> {
 
     return (
       <div className="app">
-        {userSession.isUserSignedIn() ? (
-          <Workspace
-            person={new Person(userSession.loadUserData().profile)}
-            signOut={this.signOut}
-          />
-        ) : (
-          <Splash signIn={this.signIn} />
-        )}
+        <Workspace
+          person={new Person({ name: 'Test User' })}
+          signOut={this.signOut}
+        />
       </div>
     );
   }

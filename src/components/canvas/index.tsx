@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from 'react';
+import React, { Component, MouseEvent, TouchEvent } from 'react';
 
 import './style.css';
 
@@ -38,23 +38,62 @@ class Canvas extends Component<CanvasProps, CanvasState> {
         className="canvas"
         width="1080"
         height="1080"
-        onMouseEnter={this.setIsPainting}
-        onMouseDown={this.setIsPainting}
+        onMouseEnter={this.isMousePainting}
+        onMouseDown={this.isMousePainting}
         onMouseMove={this.mousePaint}
-        onMouseUp={this.setIsPainting}
-        onMouseLeave={this.setIsPainting}
+        onMouseUp={this.isMousePainting}
+        onMouseLeave={this.isMousePainting}
+        onTouchStart={this.isTouchPainting}
+        onTouchMove={this.touchPaint}
+        onTouchEnd={this.isTouchPainting}
       />
     );
   }
 
-  private setIsPainting = (event: MouseEvent<HTMLCanvasElement>) => {
+  private isMousePainting = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
     this.setState({ isPainting: event.buttons !== 0 });
   };
 
   private mousePaint = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
+    this.paint(event.clientX, event.clientY);
+  };
 
+  private isTouchPainting = (event: TouchEvent<HTMLCanvasElement>) => {
+    /**
+     * Unable to preventDefault inside passive event listener due to target
+     * being treated as passive.
+     * @see: https://www.chromestatus.com/features/5093566007214080
+     */
+    // event.preventDefault();
+    this.setState({ isPainting: event.touches.length !== 0 });
+  };
+
+  private touchPaint = (event: TouchEvent<HTMLCanvasElement>) => {
+    /**
+     * Unable to preventDefault inside passive event listener due to target
+     * being treated as passive.
+     * @see: https://www.chromestatus.com/features/5093566007214080
+     */
+    // event.preventDefault();
+    const touches = Array.from(event.touches);
+
+    const { clientX, clientY } = touches.reduce(
+      (acc, touch) => ({
+        clientX: acc.clientX + touch.clientX,
+        clientY: acc.clientY + touch.clientY,
+      }),
+      {
+        clientX: 0,
+        clientY: 0,
+      },
+    );
+
+    this.paint(clientX / touches.length, clientY / touches.length);
+  };
+
+  private paint = (clientX: number, clientY: number) => {
     const { current } = this.el;
     const { canvasContext, canvasRect, isPainting } = this.state;
 
@@ -73,8 +112,8 @@ class Canvas extends Component<CanvasProps, CanvasState> {
 
     const s = 4;
     const hs = s / 2;
-    const fillX = (event.clientX - x) * (current.width / width) - hs;
-    const fillY = (event.clientY - y) * (current.height / height) - hs;
+    const fillX = (clientX - x) * (current.width / width) - hs;
+    const fillY = (clientY - y) * (current.height / height) - hs;
 
     ctx.fillRect(fillX, fillY, s, s);
   };

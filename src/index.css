@@ -15,4 +15,5 @@ body {
 
 #root {
   line-height: normal;
+  overflow: hidden;
 }
