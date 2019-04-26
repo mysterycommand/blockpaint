@@ -42,19 +42,21 @@ class Canvas extends Component<CanvasProps, CanvasState> {
         className="canvas"
         width="1080"
         height="1080"
-        onMouseEnter={this.isMousePainting}
-        onMouseDown={this.isMousePainting}
+        // mouse event handlers
+        onMouseEnter={this.handleMouse}
+        onMouseDown={this.handleMouse}
         onMouseMove={this.mousePaint}
-        onMouseUp={this.isMousePainting}
-        onMouseLeave={this.isMousePainting}
-        onTouchStart={this.isTouchPainting}
+        onMouseUp={this.handleMouse}
+        onMouseLeave={this.handleMouse}
+        // touch event handlers
+        onTouchStart={this.handleTouch}
         onTouchMove={this.touchPaint}
-        onTouchEnd={this.isTouchPainting}
+        onTouchEnd={this.handleTouch}
       />
     );
   }
 
-  private isMousePainting = (event: MouseEvent<HTMLCanvasElement>) => {
+  private handleMouse = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
     this.setState({ isPainting: event.buttons !== 0, prevX: -1, prevY: -1 });
   };
@@ -64,10 +66,11 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     this.paint(event.clientX, event.clientY);
   };
 
-  private isTouchPainting = (event: TouchEvent<HTMLCanvasElement>) => {
+  private handleTouch = (event: TouchEvent<HTMLCanvasElement>) => {
     /**
      * Unable to preventDefault inside passive event listener due to target
      * being treated as passive.
+     *
      * @see: https://www.chromestatus.com/features/5093566007214080
      */
     // event.preventDefault();
@@ -82,11 +85,14 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     /**
      * Unable to preventDefault inside passive event listener due to target
      * being treated as passive.
+     *
      * @see: https://www.chromestatus.com/features/5093566007214080
      */
     // event.preventDefault();
     const touches = Array.from(event.touches);
 
+    // handle multiple touches by averaging them, will sort of draw "in the
+    // middle" of all the touches
     const { clientX, clientY } = touches.reduce(
       (acc, touch) => ({
         clientX: acc.clientX + touch.clientX,
@@ -109,6 +115,12 @@ class Canvas extends Component<CanvasProps, CanvasState> {
       return;
     }
 
+    /**
+     * casting because TypeScript can't follow these being set and so thinks
+     * that they're the 'never' type
+     *
+     * @see: https://github.com/Microsoft/TypeScript/issues/11498
+     */
     const ctx = canvasContext as CanvasRenderingContext2D;
     const { x, y, width, height } = canvasRect as DOMRect;
 
@@ -121,13 +133,13 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     const fillX = (clientX - x) * (current.width / width);
     const fillY = (clientY - y) * (current.height / height);
 
-    this.setState({ prevX: fillX, prevY: fillY });
-
     if (prevX !== -1 && prevY !== -1) {
       ctx.moveTo(prevX, prevY);
       ctx.lineTo(fillX, fillY);
       ctx.stroke();
     }
+
+    this.setState({ prevX: fillX, prevY: fillY });
   };
 }
 
