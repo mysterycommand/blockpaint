@@ -13,10 +13,12 @@ type WorkspaceProps = {
 
 const Workspace: FC<WorkspaceProps> = ({ person, signOut }) => (
   <div className="workspace">
-    <p>
-      Hello, {person.name() || 'nameless person'}{' '}
+    <header className="header">
+      <h2 className="current-user">
+        Signed in as {person.name() || 'nameless person'}
+      </h2>
       <Button onClick={signOut}>Sign out</Button>
-    </p>
+    </header>
     <Canvas />
   </div>
 );

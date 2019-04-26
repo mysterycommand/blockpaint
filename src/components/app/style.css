@@ -1,4 +1,6 @@
 .app {
-  text-align: center;
   color: white;
+  margin: 0 auto;
+  max-width: 70ch;
+  text-align: center;
 }

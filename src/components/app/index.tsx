@@ -14,7 +14,7 @@ class App extends Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
 
-    const appConfig = new AppConfig();
+    const appConfig = new AppConfig(['store_write', 'publish_data']);
     const userSession = new UserSession({ appConfig });
 
     this.state = {

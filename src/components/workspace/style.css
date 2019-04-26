@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.current-user {
+  font-size: calc(10px + 2vmin);
+  font-weight: normal;
+  margin: 1em 0 0;
+}
