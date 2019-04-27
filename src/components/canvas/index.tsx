@@ -87,6 +87,8 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     const ctx = canvasContext as CanvasRenderingContext2D;
     ctx.strokeStyle = currentTool === ToolType.Paint ? 'black' : 'white';
     ctx.lineWidth = currentTool === ToolType.Paint ? 4 : 24;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
   }
 
   public render() {
@@ -114,7 +116,8 @@ class Canvas extends Component<CanvasProps, CanvasState> {
 
   private handleMouse = (event: MouseEvent<HTMLCanvasElement>) => {
     event.preventDefault();
-    this.setState({ isPainting: event.buttons !== 0, prevX: -1, prevY: -1 });
+    const isPainting = event.buttons !== 0;
+    this.setState({ isPainting, prevX: -1, prevY: -1 });
   };
 
   private mousePaint = (event: MouseEvent<HTMLCanvasElement>) => {
@@ -130,11 +133,8 @@ class Canvas extends Component<CanvasProps, CanvasState> {
      * @see: https://www.chromestatus.com/features/5093566007214080
      */
     // event.preventDefault();
-    this.setState({
-      isPainting: event.touches.length !== 0,
-      prevX: -1,
-      prevY: -1,
-    });
+    const isPainting = event.touches.length !== 0;
+    this.setState({ isPainting, prevX: -1, prevY: -1 });
   };
 
   private touchPaint = (event: TouchEvent<HTMLCanvasElement>) => {
@@ -191,8 +191,9 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     const fillX = (clientX - x) * (current.width / width);
     const fillY = (clientY - y) * (current.height / height);
 
-    if (prevX !== -1 && prevY !== -1) {
+    if (prevX === -1 && prevY === -1) {
       ctx.beginPath();
+    } else {
       ctx.moveTo(prevX, prevY);
       ctx.lineTo(fillX, fillY);
       ctx.stroke();
