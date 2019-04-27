@@ -1,3 +1,14 @@
+# [1.3.0](https://github.com/mysterycommand/blockpaint/compare/v1.2.0...v1.3.0) (2019-04-27)
+
+
+### Features
+
+* **canvas:** paint and erase tools, adds a bit of line width to the paint tool ([37c5f01](https://github.com/mysterycommand/blockpaint/commit/37c5f01))
+* **icons:** erase and paint icons ([c5c24dd](https://github.com/mysterycommand/blockpaint/commit/c5c24dd))
+* **loader:** add a loader/spinner from https://loading.io/css/ ([bfeac21](https://github.com/mysterycommand/blockpaint/commit/bfeac21))
+* **splash:** update the prompt ([42547cd](https://github.com/mysterycommand/blockpaint/commit/42547cd))
+* **workspace:** add save/fetch state and spinners to the workspace ([ae9e699](https://github.com/mysterycommand/blockpaint/commit/ae9e699))
+
 # [1.2.0](https://github.com/mysterycommand/blockpaint/compare/v1.1.2...v1.2.0) (2019-04-26)
 
 
