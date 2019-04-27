@@ -4,4 +4,27 @@
   font-size: calc(10px + 2vmin);
   color: white;
   margin-top: 1em;
+
+  position: relative;
+}
+
+.button:disabled {
+  color: transparent;
+}
+
+.button > .loader {
+  display: none;
+
+  transform: scale(0.5);
+
+  margin-top: -32px;
+  margin-left: -32px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.button:disabled > .loader {
+  display: block;
 }

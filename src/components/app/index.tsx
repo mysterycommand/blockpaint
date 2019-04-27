@@ -1,33 +1,32 @@
 import React, { Component, MouseEvent } from 'react';
 import { AppConfig, Person, UserSession } from 'blockstack';
 
-import './style.css';
 import Workspace from '../workspace';
 import Splash from '../splash';
+import { ToolType } from '../tools';
+
+import './style.css';
+
+const appConfig = new AppConfig(['store_write', 'publish_data']);
+const userSession = new UserSession({ appConfig });
 
 type AppState = {
-  appConfig: AppConfig;
-  userSession: UserSession;
+  currentTool: ToolType;
+  isFetching: boolean;
+  isSaving: boolean;
 };
 
 class App extends Component<{}, AppState> {
   private canvasRef = React.createRef<HTMLCanvasElement>();
 
-  constructor(props: {}) {
-    super(props);
+  public state = {
+    currentTool: ToolType.Paint,
+    isFetching: false,
+    isSaving: false,
+  };
 
-    const appConfig = new AppConfig(['store_write', 'publish_data']);
-    const userSession = new UserSession({ appConfig });
-
-    this.state = {
-      appConfig,
-      userSession,
-    };
-  }
-
-  signIn = (event: MouseEvent<HTMLButtonElement>) => {
+  public signIn = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const { userSession } = this.state;
 
     /**
      * @see: https://github.com/zone117x/blockstack-monero/blob/master/src/main.ts#L40-L46
@@ -39,50 +38,60 @@ class App extends Component<{}, AppState> {
     );
   };
 
-  signOut = (event: MouseEvent<HTMLButtonElement>) => {
+  public signOut = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const { userSession } = this.state;
 
     userSession.signUserOut();
     const { origin, pathname } = window.location;
     window.location.assign(`${origin}${pathname}`);
   };
 
-  savePainting = (event: MouseEvent<HTMLButtonElement>) => {
+  public savePainting = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const { userSession } = this.state;
+
     const { current } = this.canvasRef;
 
     if (!current) {
       return;
     }
 
-    userSession.putFile(
-      'painting.json',
-      JSON.stringify({
-        data: current.toDataURL('image/png'),
-        createdAt: Date.now(),
-      }),
-      {
-        encrypt: false,
-      },
-    );
+    this.setState({ isSaving: true });
+    userSession
+      .putFile(
+        'painting.json',
+        JSON.stringify({
+          data: current.toDataURL('image/png'),
+          createdAt: Date.now(),
+        }),
+        {
+          encrypt: false,
+        },
+      )
+      .then(() => {
+        this.setState({ isSaving: false });
+      });
   };
 
-  fetchPainting = () => {
-    const { userSession } = this.state;
+  public fetchPainting = () => {
     const { current } = this.canvasRef;
 
-    return !current
+    this.setState({ isFetching: true });
+    return (!current
       ? Promise.resolve(JSON.stringify({}))
       : userSession.getFile('painting.json', {
           decrypt: false,
-        });
+        })
+    ).then(file => {
+      this.setState({ isFetching: false });
+      return file;
+    });
   };
 
-  UNSAFE_componentWillMount() {
-    const { userSession } = this.state;
+  public setCurrentTool = (currentTool: ToolType) => {
+    this.setState({ currentTool });
+  };
 
+  public UNSAFE_componentWillMount() {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((/* userData */) => {
         const { origin, pathname } = window.location;
@@ -91,17 +100,21 @@ class App extends Component<{}, AppState> {
     }
   }
 
-  render() {
-    const { userSession } = this.state;
+  public render() {
+    const { currentTool, isFetching, isSaving } = this.state;
 
     return (
       <div className="app">
         {userSession.isUserSignedIn() ? (
           <Workspace
+            currentTool={currentTool}
             canvasRef={this.canvasRef}
             fetchPainting={this.fetchPainting}
+            isFetching={isFetching}
+            isSaving={isSaving}
             person={new Person(userSession.loadUserData().profile)}
             savePainting={this.savePainting}
+            setCurrentTool={this.setCurrentTool}
             signOut={this.signOut}
           />
         ) : (

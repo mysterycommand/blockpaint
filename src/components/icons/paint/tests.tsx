@@ -1,13 +1,12 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Tools, { ToolType } from '.';
+import Paint from '.';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(
-    <Tools currentTool={ToolType.Paint} setCurrentTool={() => {}} />,
-    div,
-  );
+  ReactDOM.render(<Paint />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+

@@ -1,11 +1,15 @@
-import React, { FC, DOMAttributes } from 'react';
+import React, { FC, ButtonHTMLAttributes } from 'react';
+
+import Loader from '../loader';
+
 import './style.css';
 
-type ButtonProps = DOMAttributes<HTMLButtonElement> & {};
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {};
 
-const Button: FC<ButtonProps> = ({ children, onClick }) => (
-  <button className="button" onClick={onClick}>
+const Button: FC<ButtonProps> = ({ children, disabled, onClick }) => (
+  <button className="button" onClick={onClick} disabled={disabled}>
     {children}
+    {disabled && <Loader />}
   </button>
 );
 

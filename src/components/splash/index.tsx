@@ -13,7 +13,7 @@ type SplashProps = {
 const Splash: FC<SplashProps> = ({ signIn }) => (
   <header className="splash">
     <img src={logo} className="splash-logo" alt="logo" />
-    <Button onClick={signIn}>Sign in</Button>
+    <Button onClick={signIn}>Sign in/up with Blockstack</Button>
   </header>
 );
 
