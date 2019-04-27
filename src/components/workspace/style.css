@@ -37,6 +37,6 @@
   left: 0;
 }
 
-.button-guard > div {
+.button-guard {
   transform: scale(0.5);
 }

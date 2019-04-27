@@ -48,7 +48,9 @@ const Workspace: FC<WorkspaceProps> = ({
           <Loader />
         </div>
       ) : (
-        <Button onClick={savePainting}>Save</Button>
+        <Button onClick={savePainting} disabled={isSaving}>
+          Save
+        </Button>
       )}
     </footer>
   </div>

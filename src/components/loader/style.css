@@ -1,5 +1,4 @@
 .loader {
-  color: official;
   display: inline-block;
   position: relative;
   width: 64px;
@@ -8,7 +7,7 @@
 
 .loader div {
   transform-origin: 32px 32px;
-  animation: lds-spinner 1.2s linear infinite;
+  animation: spinner 1.2s linear infinite;
 }
 
 .loader div:after {
@@ -83,7 +82,7 @@
   animation-delay: 0s;
 }
 
-@keyframes lds-spinner {
+@keyframes spinner {
   0% {
     opacity: 1;
   }
