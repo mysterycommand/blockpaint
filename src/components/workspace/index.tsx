@@ -5,10 +5,13 @@ import Canvas from '../canvas';
 
 import './style.css';
 import Button from '../button';
+import Loader from '../loader';
 
 type WorkspaceProps = {
   canvasRef: RefObject<HTMLCanvasElement>;
   fetchPainting: () => Promise<string | ArrayBuffer>;
+  isFetching: boolean;
+  isSaving: boolean;
   person: Person;
   savePainting: (event: MouseEvent<HTMLButtonElement>) => void;
   signOut: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -17,6 +20,8 @@ type WorkspaceProps = {
 const Workspace: FC<WorkspaceProps> = ({
   canvasRef,
   fetchPainting,
+  isFetching,
+  isSaving,
   person,
   savePainting,
   signOut,
@@ -28,10 +33,23 @@ const Workspace: FC<WorkspaceProps> = ({
       </h2>
       <Button onClick={signOut}>Sign out</Button>
     </header>
-    <Canvas canvasRef={canvasRef} fetchPainting={fetchPainting} />
+    <div className="stage">
+      <Canvas canvasRef={canvasRef} fetchPainting={fetchPainting} />
+      {isFetching && (
+        <div className="canvas-guard guard">
+          <Loader />
+        </div>
+      )}
+    </div>
     <footer className="footer">
       <i />
-      <Button onClick={savePainting}>Save</Button>
+      {isSaving ? (
+        <div className="button-guard guard">
+          <Loader />
+        </div>
+      ) : (
+        <Button onClick={savePainting}>Save</Button>
+      )}
     </footer>
   </div>
 );

@@ -18,6 +18,8 @@ it('renders without crashing', () => {
     <Workspace
       canvasRef={mockCanvasRef}
       fetchPainting={mockFetch}
+      isFetching={false}
+      isSaving={false}
       person={mockPerson}
       savePainting={mockHandler}
       signOut={mockHandler}

@@ -8,10 +8,20 @@ import Splash from '../splash';
 const appConfig = new AppConfig(['store_write', 'publish_data']);
 const userSession = new UserSession({ appConfig });
 
-class App extends Component {
+type AppState = {
+  isFetching: boolean;
+  isSaving: boolean;
+};
+
+class App extends Component<{}, AppState> {
   private canvasRef = React.createRef<HTMLCanvasElement>();
 
-  signIn = (event: MouseEvent<HTMLButtonElement>) => {
+  public state = {
+    isFetching: false,
+    isSaving: false,
+  };
+
+  public signIn = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     /**
@@ -24,7 +34,7 @@ class App extends Component {
     );
   };
 
-  signOut = (event: MouseEvent<HTMLButtonElement>) => {
+  public signOut = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     userSession.signUserOut();
@@ -32,7 +42,7 @@ class App extends Component {
     window.location.assign(`${origin}${pathname}`);
   };
 
-  savePainting = (event: MouseEvent<HTMLButtonElement>) => {
+  public savePainting = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     const { current } = this.canvasRef;
@@ -41,29 +51,39 @@ class App extends Component {
       return;
     }
 
-    userSession.putFile(
-      'painting.json',
-      JSON.stringify({
-        data: current.toDataURL('image/png'),
-        createdAt: Date.now(),
-      }),
-      {
-        encrypt: false,
-      },
-    );
+    this.setState({ isSaving: true });
+    userSession
+      .putFile(
+        'painting.json',
+        JSON.stringify({
+          data: current.toDataURL('image/png'),
+          createdAt: Date.now(),
+        }),
+        {
+          encrypt: false,
+        },
+      )
+      .then(() => {
+        this.setState({ isSaving: false });
+      });
   };
 
-  fetchPainting = () => {
+  public fetchPainting = () => {
     const { current } = this.canvasRef;
 
-    return !current
+    this.setState({ isFetching: true });
+    return (!current
       ? Promise.resolve(JSON.stringify({}))
       : userSession.getFile('painting.json', {
           decrypt: false,
-        });
+        })
+    ).then(file => {
+      this.setState({ isFetching: false });
+      return file;
+    });
   };
 
-  UNSAFE_componentWillMount() {
+  public UNSAFE_componentWillMount() {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((/* userData */) => {
         const { origin, pathname } = window.location;
@@ -72,13 +92,17 @@ class App extends Component {
     }
   }
 
-  render() {
+  public render() {
+    const { isFetching, isSaving } = this.state;
+
     return (
       <div className="app">
         {userSession.isUserSignedIn() ? (
           <Workspace
             canvasRef={this.canvasRef}
             fetchPainting={this.fetchPainting}
+            isFetching={isFetching}
+            isSaving={isSaving}
             person={new Person(userSession.loadUserData().profile)}
             savePainting={this.savePainting}
             signOut={this.signOut}
