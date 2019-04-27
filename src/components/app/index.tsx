@@ -1,14 +1,17 @@
 import React, { Component, MouseEvent } from 'react';
 import { AppConfig, Person, UserSession } from 'blockstack';
 
-import './style.css';
 import Workspace from '../workspace';
 import Splash from '../splash';
+import { ToolType } from '../tools';
+
+import './style.css';
 
 const appConfig = new AppConfig(['store_write', 'publish_data']);
 const userSession = new UserSession({ appConfig });
 
 type AppState = {
+  currentTool: ToolType;
   isFetching: boolean;
   isSaving: boolean;
 };
@@ -17,6 +20,7 @@ class App extends Component<{}, AppState> {
   private canvasRef = React.createRef<HTMLCanvasElement>();
 
   public state = {
+    currentTool: ToolType.Paint,
     isFetching: false,
     isSaving: false,
   };
@@ -83,6 +87,10 @@ class App extends Component<{}, AppState> {
     });
   };
 
+  public setCurrentTool = (currentTool: ToolType) => {
+    this.setState({ currentTool });
+  };
+
   public UNSAFE_componentWillMount() {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((/* userData */) => {
@@ -93,18 +101,20 @@ class App extends Component<{}, AppState> {
   }
 
   public render() {
-    const { isFetching, isSaving } = this.state;
+    const { currentTool, isFetching, isSaving } = this.state;
 
     return (
       <div className="app">
         {userSession.isUserSignedIn() ? (
           <Workspace
+            currentTool={currentTool}
             canvasRef={this.canvasRef}
             fetchPainting={this.fetchPainting}
             isFetching={isFetching}
             isSaving={isSaving}
             person={new Person(userSession.loadUserData().profile)}
             savePainting={this.savePainting}
+            setCurrentTool={this.setCurrentTool}
             signOut={this.signOut}
           />
         ) : (

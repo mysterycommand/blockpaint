@@ -1,9 +1,11 @@
 import React, { Component, MouseEvent, RefObject, TouchEvent } from 'react';
 
 import './style.css';
+import { ToolType } from '../tools';
 
 type CanvasProps = {
   canvasRef: RefObject<HTMLCanvasElement>;
+  currentTool: ToolType;
   fetchPainting: () => Promise<string | ArrayBuffer>;
 };
 
@@ -47,6 +49,12 @@ class Canvas extends Component<CanvasProps, CanvasState> {
         return;
       }
 
+      /**
+       * casting because TypeScript can't follow these being set and so thinks
+       * that they're the 'never' type
+       *
+       * @see: https://github.com/Microsoft/TypeScript/issues/11498
+       */
       const ctx = canvasContext as CanvasRenderingContext2D;
 
       const img = new Image(current.width, current.height);
@@ -60,6 +68,25 @@ class Canvas extends Component<CanvasProps, CanvasState> {
       canvasContext: current.getContext('2d'),
       canvasRect: current.getBoundingClientRect(),
     });
+  }
+
+  public componentDidUpdate() {
+    const { currentTool } = this.props;
+    const { canvasContext } = this.state;
+
+    if (!canvasContext) {
+      return;
+    }
+
+    /**
+     * casting because TypeScript can't follow these being set and so thinks
+     * that they're the 'never' type
+     *
+     * @see: https://github.com/Microsoft/TypeScript/issues/11498
+     */
+    const ctx = canvasContext as CanvasRenderingContext2D;
+    ctx.strokeStyle = currentTool === ToolType.Paint ? 'black' : 'white';
+    ctx.lineWidth = currentTool === ToolType.Paint ? 4 : 24;
   }
 
   public render() {
@@ -165,6 +192,7 @@ class Canvas extends Component<CanvasProps, CanvasState> {
     const fillY = (clientY - y) * (current.height / height);
 
     if (prevX !== -1 && prevY !== -1) {
+      ctx.beginPath();
       ctx.moveTo(prevX, prevY);
       ctx.lineTo(fillX, fillY);
       ctx.stroke();

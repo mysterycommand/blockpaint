@@ -1,3 +1,34 @@
 .tools {
-  // component-specific styles go here
+  list-style-type: none;
+  font-size: calc(10px + 2vmin);
+  margin: 1em 0 0;
+  padding: 0;
+}
+
+.tools > li {
+  display: inline-block;
+}
+
+.tools input[type='radio'] {
+  display: none;
+}
+
+.tools label {
+  line-height: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+}
+
+.tools input[type='radio']:checked + label {
+  background: white;
+  border-radius: 50%;
+}
+
+.tools input[type='radio']:checked + label > svg {
+  fill: #fe57a1;
 }

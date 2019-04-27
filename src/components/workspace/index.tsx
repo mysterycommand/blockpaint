@@ -6,24 +6,29 @@ import Canvas from '../canvas';
 import Loader from '../loader';
 
 import './style.css';
+import Tools, { ToolType } from '../tools';
 
 type WorkspaceProps = {
   canvasRef: RefObject<HTMLCanvasElement>;
+  currentTool: ToolType;
   fetchPainting: () => Promise<string | ArrayBuffer>;
   isFetching: boolean;
   isSaving: boolean;
   person: Person;
   savePainting: (event: MouseEvent<HTMLButtonElement>) => void;
+  setCurrentTool: (tool: ToolType) => void;
   signOut: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Workspace: FC<WorkspaceProps> = ({
   canvasRef,
+  currentTool,
   fetchPainting,
   isFetching,
   isSaving,
   person,
   savePainting,
+  setCurrentTool,
   signOut,
 }) => (
   <div className="workspace">
@@ -34,7 +39,11 @@ const Workspace: FC<WorkspaceProps> = ({
       <Button onClick={signOut}>Sign out</Button>
     </header>
     <div className="stage">
-      <Canvas canvasRef={canvasRef} fetchPainting={fetchPainting} />
+      <Canvas
+        canvasRef={canvasRef}
+        currentTool={currentTool}
+        fetchPainting={fetchPainting}
+      />
       {isFetching && (
         <div className="canvas-guard guard">
           <Loader />
@@ -42,7 +51,7 @@ const Workspace: FC<WorkspaceProps> = ({
       )}
     </div>
     <footer className="footer">
-      <i />
+      <Tools currentTool={currentTool} setCurrentTool={setCurrentTool} />
       <Button onClick={savePainting} disabled={isSaving}>
         Save
       </Button>

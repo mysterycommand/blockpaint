@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Person } from 'blockstack';
 
 import Workspace from '.';
+import { ToolType } from '../tools';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -17,11 +18,13 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <Workspace
       canvasRef={mockCanvasRef}
+      currentTool={ToolType.Paint}
       fetchPainting={mockFetch}
       isFetching={false}
       isSaving={false}
       person={mockPerson}
       savePainting={mockHandler}
+      setCurrentTool={() => {}}
       signOut={mockHandler}
     />,
     div,
