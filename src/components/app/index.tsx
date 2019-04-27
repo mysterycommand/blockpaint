@@ -5,29 +5,14 @@ import './style.css';
 import Workspace from '../workspace';
 import Splash from '../splash';
 
-type AppState = {
-  appConfig: AppConfig;
-  userSession: UserSession;
-};
+const appConfig = new AppConfig(['store_write', 'publish_data']);
+const userSession = new UserSession({ appConfig });
 
-class App extends Component<{}, AppState> {
+class App extends Component {
   private canvasRef = React.createRef<HTMLCanvasElement>();
-
-  constructor(props: {}) {
-    super(props);
-
-    const appConfig = new AppConfig(['store_write', 'publish_data']);
-    const userSession = new UserSession({ appConfig });
-
-    this.state = {
-      appConfig,
-      userSession,
-    };
-  }
 
   signIn = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const { userSession } = this.state;
 
     /**
      * @see: https://github.com/zone117x/blockstack-monero/blob/master/src/main.ts#L40-L46
@@ -41,7 +26,6 @@ class App extends Component<{}, AppState> {
 
   signOut = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const { userSession } = this.state;
 
     userSession.signUserOut();
     const { origin, pathname } = window.location;
@@ -50,7 +34,7 @@ class App extends Component<{}, AppState> {
 
   savePainting = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const { userSession } = this.state;
+
     const { current } = this.canvasRef;
 
     if (!current) {
@@ -70,7 +54,6 @@ class App extends Component<{}, AppState> {
   };
 
   fetchPainting = () => {
-    const { userSession } = this.state;
     const { current } = this.canvasRef;
 
     return !current
@@ -81,8 +64,6 @@ class App extends Component<{}, AppState> {
   };
 
   UNSAFE_componentWillMount() {
-    const { userSession } = this.state;
-
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((/* userData */) => {
         const { origin, pathname } = window.location;
@@ -92,8 +73,6 @@ class App extends Component<{}, AppState> {
   }
 
   render() {
-    const { userSession } = this.state;
-
     return (
       <div className="app">
         {userSession.isUserSignedIn() ? (
