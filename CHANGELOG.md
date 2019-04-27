@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/mysterycommand/blockpaint/compare/v1.3.0...v1.4.0) (2019-04-27)
+
+
+### Features
+
+* **icons:** add app_icon.{png,svg}, remove svgs that are now components, update favicon.ico ([9235473](https://github.com/mysterycommand/blockpaint/commit/9235473))
+
 # [1.3.0](https://github.com/mysterycommand/blockpaint/compare/v1.2.0...v1.3.0) (2019-04-27)
 
 
