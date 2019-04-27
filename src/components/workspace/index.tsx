@@ -1,11 +1,11 @@
 import React, { FC, MouseEvent, RefObject } from 'react';
 import { Person } from 'blockstack';
 
+import Button from '../button';
 import Canvas from '../canvas';
+import Loader from '../loader';
 
 import './style.css';
-import Button from '../button';
-import Loader from '../loader';
 
 type WorkspaceProps = {
   canvasRef: RefObject<HTMLCanvasElement>;
@@ -43,15 +43,9 @@ const Workspace: FC<WorkspaceProps> = ({
     </div>
     <footer className="footer">
       <i />
-      {isSaving ? (
-        <div className="button-guard guard">
-          <Loader />
-        </div>
-      ) : (
-        <Button onClick={savePainting} disabled={isSaving}>
-          Save
-        </Button>
-      )}
+      <Button onClick={savePainting} disabled={isSaving}>
+        Save
+      </Button>
     </footer>
   </div>
 );
