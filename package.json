@@ -44,7 +44,7 @@
     "cz-conventional-changelog": "2.1.0",
     "jest-canvas-mock": "2.1.0",
     "lodash": "4.17.11",
-    "prettier": "1.17.0",
+    "prettier": "1.17.1",
     "react-scripts": "3.0.1",
     "semantic-release": "15.13.12",
     "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
