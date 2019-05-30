@@ -18,9 +18,9 @@
     "component": "node ./src/cli"
   },
   "engines": {
-    "node": "10.15.3",
+    "node": "10.16.0",
     "npm": "6.9.0",
-    "yarn": "1.15.2"
+    "yarn": "1.16.0"
   },
   "dependencies": {
     "blockstack": "19.1.0",
@@ -48,7 +48,7 @@
     "react-scripts": "3.0.1",
     "semantic-release": "15.13.12",
     "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
-    "typescript": "3.4.5"
+    "typescript": "3.5.1"
   },
   "config": {
     "commitizen": {

@@ -55,7 +55,7 @@ class Canvas extends Component<CanvasProps, CanvasState> {
        *
        * @see: https://github.com/Microsoft/TypeScript/issues/11498
        */
-      const ctx = canvasContext as CanvasRenderingContext2D;
+      const ctx = (canvasContext as unknown) as CanvasRenderingContext2D;
 
       const img = new Image(current.width, current.height);
       img.src = data;
@@ -84,7 +84,7 @@ class Canvas extends Component<CanvasProps, CanvasState> {
      *
      * @see: https://github.com/Microsoft/TypeScript/issues/11498
      */
-    const ctx = canvasContext as CanvasRenderingContext2D;
+    const ctx = (canvasContext as unknown) as CanvasRenderingContext2D;
     ctx.strokeStyle = currentTool === ToolType.Paint ? 'black' : 'white';
     ctx.lineWidth = currentTool === ToolType.Paint ? 4 : 24;
     ctx.lineCap = 'round';
@@ -179,8 +179,8 @@ class Canvas extends Component<CanvasProps, CanvasState> {
      *
      * @see: https://github.com/Microsoft/TypeScript/issues/11498
      */
-    const ctx = canvasContext as CanvasRenderingContext2D;
-    const { x, y, width, height } = canvasRect as DOMRect;
+    const ctx = (canvasContext as unknown) as CanvasRenderingContext2D;
+    const { x, y, width, height } = (canvasRect as unknown) as DOMRect;
 
     if (ctx.canvas !== current) {
       console.warn(
