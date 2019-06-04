@@ -60,7 +60,7 @@ export default function App() {
         })
     ).then(file => {
       setIsFetching(false);
-      return file;
+      return file as string;
     });
   }
 

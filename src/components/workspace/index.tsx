@@ -11,7 +11,7 @@ import Tools, { ToolType } from '../tools';
 type WorkspaceProps = {
   canvasRef: RefObject<HTMLCanvasElement>;
   currentTool: ToolType;
-  fetchPainting: () => Promise<string | ArrayBuffer>;
+  fetchPainting: () => Promise<string>;
   isFetching: boolean;
   isSaving: boolean;
   person: Person;
