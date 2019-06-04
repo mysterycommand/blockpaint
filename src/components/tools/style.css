@@ -7,6 +7,7 @@
 
 .tools > li {
   display: inline-block;
+  margin: 0 7px;
 }
 
 .tools input[type='radio'] {
@@ -14,6 +15,7 @@
 }
 
 .tools label {
+  cursor: pointer;
   line-height: 0;
 
   display: inline-flex;
