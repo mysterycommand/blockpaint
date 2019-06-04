@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useRef, useEffect } from 'react';
 import { AppConfig, Person, UserSession } from 'blockstack';
 
 import Workspace from '../workspace';
@@ -10,22 +10,25 @@ import './style.css';
 const appConfig = new AppConfig(['store_write', 'publish_data']);
 const userSession = new UserSession({ appConfig });
 
-type AppState = {
-  currentTool: ToolType;
-  isFetching: boolean;
-  isSaving: boolean;
-};
+export default function App() {
+  const [currentTool, setCurrentTool] = useState(ToolType.Paint);
+  const [isFetching, setIsFetching] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
-class App extends Component<{}, AppState> {
-  private canvasRef = React.createRef<HTMLCanvasElement>();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  public state = {
-    currentTool: ToolType.Paint,
-    isFetching: false,
-    isSaving: false,
-  };
+  useEffect(() => {
+    if (!userSession.isSignInPending()) {
+      return;
+    }
 
-  public signIn = (event: MouseEvent<HTMLButtonElement>) => {
+    userSession.handlePendingSignIn().then((/* userData */) => {
+      const { origin, pathname } = window.location;
+      window.location.assign(`${origin}${pathname}`);
+    });
+  });
+
+  function signIn(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
 
     /**
@@ -36,26 +39,40 @@ class App extends Component<{}, AppState> {
       `${origin}${pathname}`,
       `${origin}${pathname}manifest.json`,
     );
-  };
+  }
 
-  public signOut = (event: MouseEvent<HTMLButtonElement>) => {
+  function signOut(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
 
     userSession.signUserOut();
     const { origin, pathname } = window.location;
     window.location.assign(`${origin}${pathname}`);
-  };
+  }
 
-  public savePainting = (event: MouseEvent<HTMLButtonElement>) => {
+  function fetchPainting() {
+    const { current } = canvasRef;
+
+    setIsFetching(true);
+    return (!current
+      ? Promise.resolve(JSON.stringify({}))
+      : userSession.getFile('painting.json', {
+          decrypt: false,
+        })
+    ).then(file => {
+      setIsFetching(false);
+      return file;
+    });
+  }
+
+  function savePainting(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
 
-    const { current } = this.canvasRef;
-
+    const { current } = canvasRef;
     if (!current) {
       return;
     }
 
-    this.setState({ isSaving: true });
+    setIsSaving(true);
     userSession
       .putFile(
         'painting.json',
@@ -68,61 +85,27 @@ class App extends Component<{}, AppState> {
         },
       )
       .then(() => {
-        this.setState({ isSaving: false });
+        setIsSaving(false);
       });
-  };
-
-  public fetchPainting = () => {
-    const { current } = this.canvasRef;
-
-    this.setState({ isFetching: true });
-    return (!current
-      ? Promise.resolve(JSON.stringify({}))
-      : userSession.getFile('painting.json', {
-          decrypt: false,
-        })
-    ).then(file => {
-      this.setState({ isFetching: false });
-      return file;
-    });
-  };
-
-  public setCurrentTool = (currentTool: ToolType) => {
-    this.setState({ currentTool });
-  };
-
-  public UNSAFE_componentWillMount() {
-    if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then((/* userData */) => {
-        const { origin, pathname } = window.location;
-        window.location.assign(`${origin}${pathname}`);
-      });
-    }
   }
 
-  public render() {
-    const { currentTool, isFetching, isSaving } = this.state;
-
-    return (
-      <div className="app">
-        {userSession.isUserSignedIn() ? (
-          <Workspace
-            currentTool={currentTool}
-            canvasRef={this.canvasRef}
-            fetchPainting={this.fetchPainting}
-            isFetching={isFetching}
-            isSaving={isSaving}
-            person={new Person(userSession.loadUserData().profile)}
-            savePainting={this.savePainting}
-            setCurrentTool={this.setCurrentTool}
-            signOut={this.signOut}
-          />
-        ) : (
-          <Splash signIn={this.signIn} />
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="app">
+      {userSession.isUserSignedIn() ? (
+        <Workspace
+          currentTool={currentTool}
+          canvasRef={canvasRef}
+          fetchPainting={fetchPainting}
+          isFetching={isFetching}
+          isSaving={isSaving}
+          person={new Person(userSession.loadUserData().profile)}
+          savePainting={savePainting}
+          setCurrentTool={setCurrentTool}
+          signOut={signOut}
+        />
+      ) : (
+        <Splash signIn={signIn} />
+      )}
+    </div>
+  );
 }
-
-export default App;
