@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "reset": "yarn clean node_modules/",
+    "reset": "yarn clean node_modules/ && yarn install",
     "clean": "rm -rf build/",
     "start": "craco start",
     "build": "craco build",
