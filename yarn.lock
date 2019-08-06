@@ -2441,10 +2441,10 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-blockstack@19.2.2:
-  version "19.2.2"
-  resolved "https://registry.yarnpkg.com/blockstack/-/blockstack-19.2.2.tgz#7d096f3a42a0a23a4637232900c0fd9b00e560f8"
-  integrity sha512-jU2BW+uy6QH3PUpeHA+92AXzgSVMC7pX3YiHU0QCfRnKkd0/y41b3puCHBl1XPHNUVxHyb1Ewof0pv+xAMMcZA==
+blockstack@19.2.3:
+  version "19.2.3"
+  resolved "https://registry.yarnpkg.com/blockstack/-/blockstack-19.2.3.tgz#9028c06bf70bd4eab18e458c545942846896714b"
+  integrity sha512-ZR/aT0/URduTBad9ZpbRAEMBJYKMjPB26fTevz8E5aPT2pxg9gecfBSNvDB4QLZgGZQV8EMVUsZYDj/4jFF5pg==
   dependencies:
     ajv "^4.11.5"
     bip39 "^3.0.2"
