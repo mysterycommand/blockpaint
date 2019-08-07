@@ -23,7 +23,7 @@
     "yarn": "1.16.0"
   },
   "dependencies": {
-    "blockstack": "19.2.3",
+    "blockstack": "19.2.5",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   },
