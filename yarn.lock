@@ -3628,17 +3628,7 @@ cosmiconfig@^4.0.0:
     parse-json "^4.0.0"
     require-from-string "^2.0.1"
 
-cosmiconfig@^5.0.0, cosmiconfig@^5.0.1, cosmiconfig@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-5.2.0.tgz#45038e4d28a7fe787203aede9c25bca4a08b12c8"
-  integrity sha512-nxt+Nfc3JAqf4WIWd0jXLjTJZmsPLrA9DDc4nRw2KFJQJK7DNooqSXrNI7tzLG50CF8axczly5UV929tBmh/7g==
-  dependencies:
-    import-fresh "^2.0.0"
-    is-directory "^0.3.1"
-    js-yaml "^3.13.0"
-    parse-json "^4.0.0"
-
-cosmiconfig@^5.2.1:
+cosmiconfig@^5.0.0, cosmiconfig@^5.0.1, cosmiconfig@^5.2.0, cosmiconfig@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-5.2.1.tgz#040f726809c591e77a17c0a3626ca45b4f168b1a"
   integrity sha512-H65gsXo1SKjf8zmrJ67eJk8aIRKV5ff2D4uKZIBZShbhGSpEmsQOPW/SKMKYhSTrqR7ufy6RP69rPogdaPh/kA==
@@ -5920,6 +5910,13 @@ hosted-git-info@^2.1.4, hosted-git-info@^2.6.0, hosted-git-info@^2.7.1:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
   integrity sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
 
+hosted-git-info@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-3.0.0.tgz#dd8af49cd01e73cc8e61ba13e217a772fd4ecd2d"
+  integrity sha512-zYSx1cP4MLsvKtTg8DF/PI6e6FHZ3wcawcTGsrLU2TM+UfD4jmSrn2wdQT16TFbH3lO4PIdjLG0E+cuYDgFD9g==
+  dependencies:
+    lru-cache "^5.1.1"
+
 hpack.js@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/hpack.js/-/hpack.js-2.1.6.tgz#87774c0949e513f42e84575b3c45681fade2a0b2"
@@ -7246,7 +7243,7 @@ js-tokens@^3.0.2:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
   integrity sha1-mGbfOVECEw449/mWvOtlRDIJwls=
 
-js-yaml@^3.13.0, js-yaml@^3.13.1, js-yaml@^3.9.0:
+js-yaml@^3.13.1, js-yaml@^3.9.0:
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.13.1.tgz#aff151b30bfdfa8e49e05da22e7415e9dfa37847"
   integrity sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==
@@ -11400,10 +11397,10 @@ semantic-release-plugin-decorators@^2.0.0:
     import-from "^2.1.0"
     lodash "^4.17.4"
 
-semantic-release@15.13.19:
-  version "15.13.19"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.13.19.tgz#d1d05b3516fb8701d81f4e6b9be42bafffef13cb"
-  integrity sha512-6eqqAmzGaJWgP5R5IkWIQK9is+cWUp/A+pwzxf/YaG1hJv1eD25klUP7Y0fedsPOxxI8eLuDUVlEs7U8SOlK0Q==
+semantic-release@15.13.21:
+  version "15.13.21"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.13.21.tgz#d021c75f889cff75ae3410736942bee6c4557da7"
+  integrity sha512-3S9thQas28iv3NeHUqQVsDnxMcBGQICdxabeNnJ8BnbRBvCkgqCg3v9zo/+O5a8GCyxrgjtwJ2iWozL8SiIq1w==
   dependencies:
     "@semantic-release/commit-analyzer" "^6.1.0"
     "@semantic-release/error" "^2.2.0"
@@ -11420,8 +11417,8 @@ semantic-release@15.13.19:
     get-stream "^5.0.0"
     git-log-parser "^1.2.0"
     hook-std "^2.0.0"
-    hosted-git-info "^2.7.1"
-    lodash "^4.17.4"
+    hosted-git-info "^3.0.0"
+    lodash "^4.17.15"
     marked "^0.7.0"
     marked-terminal "^3.2.0"
     p-locate "^4.0.0"
