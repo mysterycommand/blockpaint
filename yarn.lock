@@ -921,10 +921,10 @@
     resolve-from "^5.0.0"
     resolve-global "^1.0.0"
 
-"@craco/craco@5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@craco/craco/-/craco-5.3.0.tgz#d96b1b2f43e6a4bb2fff6c75dfd4b9035743788e"
-  integrity sha512-QThxeHgNRMuVNvci2gWpNTNwcY5oB5G5LHtrrZFu1YCbPR3sbH4pmGovMHmWjUkDQG3XfHRo3F4FVOkMvzEgHA==
+"@craco/craco@5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@craco/craco/-/craco-5.4.0.tgz#0e74e3e034f7f2228d0d8935b7b432de05ceec48"
+  integrity sha512-g5htgEDTgC2d4N2luk9c1xHdAT/4qmfp5/JzqI2x5lvmmxtCJXJLMfqrxOx1kobinYWOqdipPmLYVrF10yp0Rw==
   dependencies:
     cross-spawn "^6.0.5"
     lodash.mergewith "^4.6.2"
