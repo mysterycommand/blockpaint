@@ -25,7 +25,7 @@
   "dependencies": {
     "blockstack": "19.2.5",
     "react": "16.9.0",
-    "react-dom": "16.9.0"
+    "react-dom": "16.10.1"
   },
   "devDependencies": {
     "@craco/craco": "5.3.0",
