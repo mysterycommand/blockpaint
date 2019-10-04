@@ -1,8 +1,4 @@
 language: node_js
-
-# this is handled by the fact that we have an `.nvmrc` in the root
-# node_js: lts/*
-
 cache: yarn
 
 env:
