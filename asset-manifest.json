@@ -5,17 +5,17 @@
     "main.js.map": "/blockpaint/static/js/main.ca63be96.chunk.js.map",
     "runtime-main.js": "/blockpaint/static/js/runtime-main.1d26fdd5.js",
     "runtime-main.js.map": "/blockpaint/static/js/runtime-main.1d26fdd5.js.map",
-    "static/js/2.63396a8e.chunk.js": "/blockpaint/static/js/2.63396a8e.chunk.js",
-    "static/js/2.63396a8e.chunk.js.map": "/blockpaint/static/js/2.63396a8e.chunk.js.map",
+    "static/js/2.8b59c2a9.chunk.js": "/blockpaint/static/js/2.8b59c2a9.chunk.js",
+    "static/js/2.8b59c2a9.chunk.js.map": "/blockpaint/static/js/2.8b59c2a9.chunk.js.map",
     "index.html": "/blockpaint/index.html",
-    "precache-manifest.919c553945f31b0d92b80beb3a114bd4.js": "/blockpaint/precache-manifest.919c553945f31b0d92b80beb3a114bd4.js",
+    "precache-manifest.62e3c6f72bad20a213331cb5b497f85b.js": "/blockpaint/precache-manifest.62e3c6f72bad20a213331cb5b497f85b.js",
     "service-worker.js": "/blockpaint/service-worker.js",
     "static/css/main.83f3a635.chunk.css.map": "/blockpaint/static/css/main.83f3a635.chunk.css.map",
     "static/media/logo.svg": "/blockpaint/static/media/logo.02b2068a.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.1d26fdd5.js",
-    "static/js/2.63396a8e.chunk.js",
+    "static/js/2.8b59c2a9.chunk.js",
     "static/css/main.83f3a635.chunk.css",
     "static/js/main.ca63be96.chunk.js"
   ]
