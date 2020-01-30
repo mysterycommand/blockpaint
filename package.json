@@ -18,9 +18,9 @@
     "component": "node ./src/cli"
   },
   "engines": {
-    "node": "12.13.1",
-    "npm": "6.13.1",
-    "yarn": "1.19.2"
+    "node": ">=12",
+    "npm": "6.13.7",
+    "yarn": "1.21.1"
   },
   "dependencies": {
     "blockstack": "19.3.0",
