@@ -41,7 +41,7 @@
     "@types/react-dom": "16.9.5",
     "commitizen": "4.0.3",
     "craco-blockstack": "1.0.2",
-    "cz-conventional-changelog": "3.0.2",
+    "cz-conventional-changelog": "3.1.0",
     "jest-canvas-mock": "2.2.0",
     "lodash": "4.17.15",
     "prettier": "1.19.1",
