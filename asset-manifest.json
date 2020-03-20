@@ -5,18 +5,18 @@
     "main.js.map": "/blockpaint/static/js/main.76959686.chunk.js.map",
     "runtime-main.js": "/blockpaint/static/js/runtime-main.9c0f512e.js",
     "runtime-main.js.map": "/blockpaint/static/js/runtime-main.9c0f512e.js.map",
-    "static/js/2.db9cf25c.chunk.js": "/blockpaint/static/js/2.db9cf25c.chunk.js",
-    "static/js/2.db9cf25c.chunk.js.map": "/blockpaint/static/js/2.db9cf25c.chunk.js.map",
+    "static/js/2.5a57c51f.chunk.js": "/blockpaint/static/js/2.5a57c51f.chunk.js",
+    "static/js/2.5a57c51f.chunk.js.map": "/blockpaint/static/js/2.5a57c51f.chunk.js.map",
     "index.html": "/blockpaint/index.html",
-    "precache-manifest.ad88e267bb7edf92b0289e07d77103ee.js": "/blockpaint/precache-manifest.ad88e267bb7edf92b0289e07d77103ee.js",
+    "precache-manifest.95fb2df377128e0576bd14ae20ba8e7d.js": "/blockpaint/precache-manifest.95fb2df377128e0576bd14ae20ba8e7d.js",
     "service-worker.js": "/blockpaint/service-worker.js",
     "static/css/main.83f3a635.chunk.css.map": "/blockpaint/static/css/main.83f3a635.chunk.css.map",
-    "static/js/2.db9cf25c.chunk.js.LICENSE.txt": "/blockpaint/static/js/2.db9cf25c.chunk.js.LICENSE.txt",
+    "static/js/2.5a57c51f.chunk.js.LICENSE.txt": "/blockpaint/static/js/2.5a57c51f.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/blockpaint/static/media/logo.02b2068a.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.9c0f512e.js",
-    "static/js/2.db9cf25c.chunk.js",
+    "static/js/2.5a57c51f.chunk.js",
     "static/css/main.83f3a635.chunk.css",
     "static/js/main.76959686.chunk.js"
   ]
