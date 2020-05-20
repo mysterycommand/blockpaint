@@ -48,7 +48,7 @@
     "react-scripts": "3.4.1",
     "semantic-release": "17.0.7",
     "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
-    "typescript": "3.9.2"
+    "typescript": "3.9.3"
   },
   "config": {
     "commitizen": {
