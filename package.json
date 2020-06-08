@@ -23,7 +23,7 @@
     "yarn": "1.21.1"
   },
   "dependencies": {
-    "blockstack": "21.0.0",
+    "blockstack": "21.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
