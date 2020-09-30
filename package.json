@@ -42,7 +42,7 @@
     "commitizen": "4.2.1",
     "craco-blockstack": "1.0.2",
     "cz-conventional-changelog": "3.3.0",
-    "jest-canvas-mock": "2.2.0",
+    "jest-canvas-mock": "2.3.0",
     "lodash": "4.17.20",
     "prettier": "2.1.2",
     "react-scripts": "3.4.3",
