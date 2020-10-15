@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0bee517f2e399fad460493aa3b149e3e",
+    "revision": "2fd200808c441f69acf1a57cb685166b",
     "url": "/blockpaint/index.html"
   },
   {
@@ -8,12 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blockpaint/static/css/main.83f3a635.chunk.css"
   },
   {
-    "revision": "b2806374db9ced2d7e40",
-    "url": "/blockpaint/static/js/2.3615954a.chunk.js"
+    "revision": "fdcf9f9aa51aa41ee604",
+    "url": "/blockpaint/static/js/2.ce5b6522.chunk.js"
   },
   {
-    "revision": "6a9a7ae1b22dd241bd4c94d7d819c777",
-    "url": "/blockpaint/static/js/2.3615954a.chunk.js.LICENSE.txt"
+    "revision": "a21c238a02f5ef1a93c9921117bbf85b",
+    "url": "/blockpaint/static/js/2.ce5b6522.chunk.js.LICENSE.txt"
   },
   {
     "revision": "cc71323cc912d8956c88",
