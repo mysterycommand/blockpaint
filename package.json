@@ -46,7 +46,7 @@
     "lodash": "4.17.20",
     "prettier": "2.2.0",
     "react-scripts": "3.4.4",
-    "semantic-release": "17.2.4",
+    "semantic-release": "17.3.0",
     "semantic-release-github-pr": "https://github.com/mysterycommand/semantic-release-github-pr.git#fix/34-and-35",
     "typescript": "4.1.2"
   },
