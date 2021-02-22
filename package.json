@@ -43,7 +43,7 @@
     "craco-blockstack": "1.0.2",
     "cz-conventional-changelog": "3.3.0",
     "jest-canvas-mock": "2.3.0",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "prettier": "2.2.1",
     "react-scripts": "4.0.1",
     "semantic-release": "17.3.7",
